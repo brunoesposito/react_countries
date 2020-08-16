@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, {useEffect, useState} from 'react';
 import {
   Box,
@@ -14,49 +15,71 @@ import {useHistory} from 'react-router-dom';
 
 import SkeletonLoader from '../Skeleton';
 
-function List({filterData}) {
+const List = ({filterData}) => {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
+  const [getLocal, setGetLocal] = useState([]);
+
+  const getStorageAndUpdateInfo = async () => {
+    const local = JSON.parse(
+      await localStorage.getItem('@react_countries:update'),
+    );
+    setGetLocal(local);
+  };
+
+  const getLoopAndEdit = (data) => {
+    let nameCountry = data.country.nameTranslations[0].value;
+    let nameCapital = data.country.capital;
+
+    if (getLocal) {
+      getLocal.find((lo) => {
+        if (lo.country === nameCountry) {
+          nameCountry = lo.name;
+          nameCapital = lo.capital;
+        }
+      });
+    }
+
+    return (
+      <Card>
+        <CardActionArea>
+          <CardMedia
+            image={data.svgFile}
+            title={data.country.nameTranslations[0].value}
+            height="140"
+            component="img"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h1">
+              {data.emoji} {nameCountry}
+            </Typography>
+            <Typography variant="subtitle1" component="p">
+              <b>Capital:</b> {nameCapital}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => history.push(`/country/${nameCountry}`, data)}
+          >
+            Mais detalhes
+          </Button>
+        </CardActions>
+      </Card>
+    );
+  };
 
   useEffect(() => {
     setLoading(false);
+    getStorageAndUpdateInfo();
   }, []);
 
   return Object.keys(filterData).length > 0 ? (
     filterData.map((data) => (
       <Grid item xs={6} md={3} key={data.emojiUnicode}>
-        <Card>
-          <CardActionArea>
-            <CardMedia
-              image={data.svgFile}
-              title={data.country.nameTranslations[0].value}
-              height="140"
-              component="img"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h1">
-                {data.emoji} {data.country.nameTranslations[0].value}
-              </Typography>
-              <Typography variant="subtitle1" component="p">
-                <b>Capital:</b> {data.country.capital}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <Button
-              size="small"
-              color="primary"
-              onClick={() =>
-                history.push(
-                  `/country/${data.country.nameTranslations[0].value}`,
-                  data,
-                )
-              }
-            >
-              Mais detalhes
-            </Button>
-          </CardActions>
-        </Card>
+        {getLoopAndEdit(data)}
       </Grid>
     ))
   ) : (
@@ -81,6 +104,6 @@ function List({filterData}) {
       )}
     </>
   );
-}
+};
 
 export default List;
