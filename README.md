@@ -2,6 +2,8 @@
   <img src="./src/public/world.gif" height="150" alt="React JS country" />
 
   ## React JS country listing project! 🌎
+
+  [![Coverage Status](https://coveralls.io/repos/github/brunoesposito/react_countries/badge.svg?branch=master)](https://coveralls.io/github/brunoesposito/react_countries?branch=master)
 </div>
 
 <br>
