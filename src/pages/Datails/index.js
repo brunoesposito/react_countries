@@ -1,6 +1,12 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState, useEffect, createRef, useCallback} from 'react';
+import React, {
+  useState,
+  useEffect,
+  createRef,
+  useCallback,
+  useLayoutEffect,
+} from 'react';
 import {useParams, useLocation, useHistory} from 'react-router-dom';
 
 import {
@@ -53,6 +59,10 @@ const Datails = () => {
       });
     }
   }, [name]);
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [state]);
 
   useEffect(() => {
     getStorageAndUpdateInfo();

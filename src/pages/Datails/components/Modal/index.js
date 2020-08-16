@@ -1,11 +1,13 @@
 import React, {useState, forwardRef} from 'react';
 import {Typography} from '@material-ui/core';
+import {useHistory} from 'react-router-dom';
 
 import {Form} from '@unform/web';
 
 import {Container, TextInput, ButtonSave} from './styles';
 
 const ModalEdit = forwardRef(({name, tabIndex}, ref) => {
+  const history = useHistory();
   const [error, setError] = useState(false);
 
   const handleSubmit = async (data, {reset}) => {
@@ -21,30 +23,24 @@ const ModalEdit = forwardRef(({name, tabIndex}, ref) => {
     );
 
     if (!local) {
-      return localStorage.setItem(
-        '@react_countries:update',
-        JSON.stringify([data]),
-      );
+      localStorage.setItem('@react_countries:update', JSON.stringify([data]));
+      return history.push('/');
     }
 
     local.find((lo, i) => {
       if (lo.country === name) {
         local[i] = data;
-        return localStorage.setItem(
-          '@react_countries:update',
-          JSON.stringify(local),
-        );
+        localStorage.setItem('@react_countries:update', JSON.stringify(local));
+        return history.push('/');
       }
 
       const newData = [];
       newData.push(...local, data);
-      return localStorage.setItem(
-        '@react_countries:update',
-        JSON.stringify(newData),
-      );
+      localStorage.setItem('@react_countries:update', JSON.stringify(newData));
+      return history.push('/');
     });
 
-    return setError(false);
+    return history.push('/');
   };
 
   return (
