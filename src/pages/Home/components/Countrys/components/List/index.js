@@ -14,6 +14,7 @@ import {
 import {useHistory} from 'react-router-dom';
 
 import SkeletonLoader from '../Skeleton';
+import {FixText} from './styles';
 
 const List = ({filterData}) => {
   const history = useHistory();
@@ -50,12 +51,12 @@ const List = ({filterData}) => {
             component="img"
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h1">
+            <FixText gutterBottom variant="h5" component="h1">
               {data.emoji} {nameCountry}
-            </Typography>
-            <Typography variant="subtitle1" component="p">
+            </FixText>
+            <FixText variant="subtitle1" component="p">
               <b>Capital:</b> {nameCapital}
-            </Typography>
+            </FixText>
           </CardContent>
         </CardActionArea>
         <CardActions>
