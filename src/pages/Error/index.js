@@ -33,7 +33,11 @@ const Error = (noPath) => {
       {noPath ? (
         <>
           <Text>A página que você tentou acessar não existe mais!</Text>
-          <Button variant="contained" onClick={() => history.push('/')}>
+          <Button
+            id="ButtonTestError"
+            variant="contained"
+            onClick={() => history.push('/')}
+          >
             Voltar para home
           </Button>
         </>

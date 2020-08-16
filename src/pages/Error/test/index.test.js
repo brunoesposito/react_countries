@@ -11,7 +11,9 @@ afterEach(() => {
 
 jest.mock('react-lottie', () => 'react-lottie');
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  render(<Error />, div);
+describe('Structure testing', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    render(<Error />, div);
+  });
 });
