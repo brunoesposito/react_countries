@@ -1,5 +1,6 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, {useState, useEffect, createRef, useCallback} from 'react';
 import {useParams, useLocation, useHistory} from 'react-router-dom';
 
 import {
@@ -11,8 +12,12 @@ import {
   CardContent,
   Typography,
   Hidden,
+  Modal,
+  IconButton,
 } from '@material-ui/core';
+import Edit from '@material-ui/icons/Edit';
 
+import ModalEdit from './components/Modal';
 import {
   Bread,
   BoxDistance,
@@ -26,6 +31,32 @@ const Datails = () => {
   const history = useHistory();
   const {state} = useLocation();
   const {name} = useParams();
+  const modalRef = createRef();
+
+  const [open, setOpen] = useState(false);
+  const [countryCapital, setCountryCapital] = useState(state.country.capital);
+
+  const handleModal = () => {
+    setOpen(!open);
+  };
+
+  const getStorageAndUpdateInfo = useCallback(async () => {
+    const local = JSON.parse(
+      await localStorage.getItem('@react_countries:update'),
+    );
+
+    if (local) {
+      local.find((lo) => {
+        if (lo.country === name) {
+          setCountryCapital(lo.capital);
+        }
+      });
+    }
+  }, [name]);
+
+  useEffect(() => {
+    getStorageAndUpdateInfo();
+  }, [getStorageAndUpdateInfo]);
 
   return (
     <Container fixed>
@@ -45,8 +76,13 @@ const Datails = () => {
                   {state.emoji}
                 </BoxCountryAvatar>
               }
+              action={
+                <IconButton aria-label="settings" onClick={() => handleModal()}>
+                  <Edit />
+                </IconButton>
+              }
               title={name}
-              subheader={`Capital: ${state.country.capital}`}
+              subheader={`Capital: ${countryCapital}`}
             />
             <BoxCountryImage image={state.svgFile} title={name} />
             <CardContent>
@@ -114,6 +150,8 @@ const Datails = () => {
           </BoxCountry>
           <Hidden only={['md', 'lg', 'xl']}>
             <Button
+              aria-labelledby="modal-title"
+              aria-describedby="modal-description"
               variant="contained"
               color="primary"
               onClick={() => history.push('/')}
@@ -123,6 +161,9 @@ const Datails = () => {
           </Hidden>
         </Grid>
       </Grid>
+      <Modal open={open} onClose={handleModal}>
+        <ModalEdit ref={modalRef} name={name} />
+      </Modal>
     </Container>
   );
 };

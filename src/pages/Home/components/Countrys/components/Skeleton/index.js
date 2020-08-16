@@ -3,7 +3,7 @@ import React from 'react';
 import {Grid, Card, CardActionArea, CardContent} from '@material-ui/core';
 import {Skeleton} from '@material-ui/lab';
 
-function SkeletonLoader() {
+const SkeletonLoader = () => {
   return (
     <>
       <Grid item xs={6} md={3}>
@@ -92,6 +92,6 @@ function SkeletonLoader() {
       </Grid>
     </>
   );
-}
+};
 
 export default SkeletonLoader;
