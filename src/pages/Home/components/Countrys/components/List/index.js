@@ -54,9 +54,15 @@ const List = ({filterData}) => {
             <FixText gutterBottom variant="h5" component="h1">
               {data.emoji} {nameCountry}
             </FixText>
-            <FixText variant="subtitle1" component="p">
-              <b>Capital:</b> {nameCapital}
-            </FixText>
+            {nameCapital ? (
+              <FixText variant="subtitle1" component="p">
+                <b>Capital:</b> {nameCapital}
+              </FixText>
+            ) : (
+              <FixText variant="subtitle1" component="p">
+                <b>Capital:</b> Nenhuma capital
+              </FixText>
+            )}
           </CardContent>
         </CardActionArea>
         <CardActions>

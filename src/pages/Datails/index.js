@@ -12,25 +12,22 @@ import {useParams, useLocation, useHistory} from 'react-router-dom';
 import {
   Container,
   Grid,
-  Link,
-  Button,
   CardHeader,
   CardContent,
   Typography,
-  Hidden,
   Modal,
   IconButton,
 } from '@material-ui/core';
-import Edit from '@material-ui/icons/Edit';
+import {Edit, ArrowLeft} from '@material-ui/icons';
 
 import ModalEdit from './components/Modal';
 import {
-  Bread,
+  BoxCountry,
+  BoxCountryAvatar,
+  BoxCountryImage,
   BoxDistance,
   BoxDistanceText,
-  BoxCountry,
-  BoxCountryImage,
-  BoxCountryAvatar,
+  GoBack,
 } from './styles';
 
 const Datails = () => {
@@ -70,13 +67,13 @@ const Datails = () => {
 
   return (
     <Container fixed>
-      <Bread aria-label="breadcrumb">
-        <Link color="inherit" onClick={() => history.push('/')}>
-          Home
-        </Link>
-        <Typography color="textPrimary">country</Typography>
-        <Typography color="textPrimary">{name}</Typography>
-      </Bread>
+      <GoBack
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        onClick={() => history.push('/')}
+      >
+        <ArrowLeft /> Voltar
+      </GoBack>
       <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
           <BoxCountry>
@@ -128,15 +125,6 @@ const Datails = () => {
               </Grid>
             </CardContent>
           </BoxCountry>
-          <Hidden only={['xs', 'sm']}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => history.push('/')}
-            >
-              Voltar
-            </Button>
-          </Hidden>
         </Grid>
         <Grid item xs={12} md={4}>
           <BoxCountry>
@@ -158,17 +146,6 @@ const Datails = () => {
               ))}
             </CardContent>
           </BoxCountry>
-          <Hidden only={['md', 'lg', 'xl']}>
-            <Button
-              aria-labelledby="modal-title"
-              aria-describedby="modal-description"
-              variant="contained"
-              color="primary"
-              onClick={() => history.push('/')}
-            >
-              Voltar
-            </Button>
-          </Hidden>
         </Grid>
       </Grid>
       <Modal open={open} onClose={handleModal}>

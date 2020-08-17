@@ -1,14 +1,8 @@
 import styled from 'styled-components';
-import {
-  Breadcrumbs,
-  Card,
-  CardMedia,
-  Typography,
-  Avatar,
-} from '@material-ui/core';
+import {Button, Card, CardMedia, Typography, Avatar} from '@material-ui/core';
 
-export const Bread = styled(Breadcrumbs)`
-  margin: 10px 0 20px;
+export const GoBack = styled(Button)`
+  margin-bottom: 20px;
 `;
 
 export const BoxDistance = styled(Card)`
