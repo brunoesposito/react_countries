@@ -57,6 +57,11 @@ const Countrys = ({data}) => {
           </Grid>
         </Grid>
       </Header>
+      {getFilter && (
+        <Typography gutterBottom variant="inherit" component="p">
+          Você pesquisou por: <b>{getFilter}</b>
+        </Typography>
+      )}
       <Grid container spacing={2}>
         <List filterData={filterData} />
       </Grid>
