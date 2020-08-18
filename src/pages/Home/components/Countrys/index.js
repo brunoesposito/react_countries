@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Grid, Button, Typography} from '@material-ui/core';
+import Close from '@material-ui/icons/Close';
 
 import List from './components/List';
-import {Header, BoxForm, TextInput} from './styles';
+import {Header, BoxForm, TextInput, Empty} from './styles';
 
 const Countrys = ({data}) => {
   const [getFilter, setGetFilter] = useState('');
@@ -13,7 +14,7 @@ const Countrys = ({data}) => {
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '');
 
-    setGetFilter(cleanCountry);
+    setGetFilter(cleanCountry.toLowerCase());
   };
 
   useEffect(() => {
@@ -22,8 +23,8 @@ const Countrys = ({data}) => {
         data.Flag.filter((flag) => {
           const cleanName = flag.country.nameTranslations[0].value
             .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '');
-          console.log(cleanName, getFilter);
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
 
           return cleanName.match(getFilter);
         }),
@@ -59,7 +60,10 @@ const Countrys = ({data}) => {
       </Header>
       {getFilter && (
         <Typography gutterBottom variant="inherit" component="p">
-          Você pesquisou por: <b>{getFilter}</b>
+          Você pesquisou por: <b>{getFilter}</b>{' '}
+          <Empty onClick={() => setGetFilter('')}>
+            <Close />
+          </Empty>
         </Typography>
       )}
       <Grid container spacing={2}>

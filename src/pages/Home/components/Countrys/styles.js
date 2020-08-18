@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Box} from '@material-ui/core';
+import {Box, Button} from '@material-ui/core';
 
 import {Form} from '@unform/web';
 import Input from '../../../Components/Input';
@@ -20,4 +20,9 @@ export const TextInput = styled(Input)`
   input {
     padding: 9.5px 14px;
   }
+`;
+
+export const Empty = styled(Button)`
+  padding: 0;
+  min-width: inherit;
 `;
