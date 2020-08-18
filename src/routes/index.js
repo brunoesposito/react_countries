@@ -4,7 +4,7 @@ import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {useQuery, gql} from '@apollo/client';
 
 import Home from '../pages/Home';
-import Datails from '../pages/Datails';
+import Details from '../pages/Details';
 import Error from '../pages/Error';
 
 const Routes = () => {
@@ -72,7 +72,7 @@ const Routes = () => {
             <Home loading={loading} error={error} data={data} />
           </Route>
           <Route path="/country/:name">
-            <Datails />
+            <Details />
           </Route>
           <Route path="*">
             <Error noPath />

@@ -13,9 +13,10 @@ const Countrys = ({data}) => {
   const handleSubmit = ({country}) => {
     const cleanCountry = country
       .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '');
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
 
-    setGetFilter(cleanCountry.toLowerCase());
+    setGetFilter(cleanCountry);
   };
 
   const deleteAndResetSearchForm = () => {
