@@ -30,7 +30,7 @@ import {
   GoBack,
 } from './styles';
 
-const Datails = () => {
+const Details = () => {
   const history = useHistory();
   const {state} = useLocation();
   const {name} = useParams();
@@ -155,4 +155,4 @@ const Datails = () => {
   );
 };
 
-export default Datails;
+export default Details;

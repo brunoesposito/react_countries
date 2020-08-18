@@ -2,7 +2,7 @@
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 
-import Datails from '../index';
+import Details from '../../../../pages/Details';
 
 afterEach(() => {
   cleanup();
@@ -74,7 +74,8 @@ jest.mock('react-router-dom', () => ({
 
 describe('Structure testing', () => {
   it('renders without crashing', () => {
+    window.scrollTo = jest.fn();
     const div = document.createElement('div');
-    render(<Datails />, div);
+    render(<Details />, div);
   });
 });
