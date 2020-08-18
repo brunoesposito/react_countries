@@ -27,8 +27,8 @@ jobs:
         restore-keys: |
           ${{ runner.OS }}-node-
           ${{ runner.OS }}-
-    - run: npm install -g yarn
-    
+    - run: npm install yarn
+
     - name: Verify dependencies
       run: yarn audit
 
