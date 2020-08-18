@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {Grid, Button, Typography} from '@material-ui/core';
 import Close from '@material-ui/icons/Close';
 
@@ -6,6 +6,7 @@ import List from './components/List';
 import {Header, BoxForm, TextInput, Empty} from './styles';
 
 const Countrys = ({data}) => {
+  const formRef = useRef(null);
   const [getFilter, setGetFilter] = useState('');
   const [filterData, setFilterData] = useState([]);
 
@@ -15,6 +16,11 @@ const Countrys = ({data}) => {
       .replace(/[\u0300-\u036f]/g, '');
 
     setGetFilter(cleanCountry.toLowerCase());
+  };
+
+  const deleteAndResetSearchForm = () => {
+    formRef.current.reset();
+    setGetFilter('');
   };
 
   useEffect(() => {
@@ -44,7 +50,7 @@ const Countrys = ({data}) => {
             </Typography>
           </Grid>
           <Grid item xs={12} md={4}>
-            <BoxForm onSubmit={handleSubmit}>
+            <BoxForm ref={formRef} onSubmit={handleSubmit}>
               <TextInput
                 name="country"
                 type="text"
@@ -61,7 +67,7 @@ const Countrys = ({data}) => {
       {getFilter && (
         <Typography gutterBottom variant="inherit" component="p">
           Você pesquisou por: <b>{getFilter}</b>{' '}
-          <Empty onClick={() => setGetFilter('')}>
+          <Empty onClick={() => deleteAndResetSearchForm()}>
             <Close />
           </Empty>
         </Typography>
